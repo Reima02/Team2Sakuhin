@@ -20,17 +20,17 @@ public class PlayerController : MonoBehaviour
     public PlayerStatus playerStatus = new PlayerStatus();    //プレイヤーステータス
 
     [SerializeField] private float moveSpeed = 0f;  //移動速度
-    [SerializeField] float flap = 1000f;
+    [SerializeField] float flap = 200;
     private Rigidbody2D rb;
 
     //プレイヤー初期設定
     [SerializeField] private int maxHP;
+    private int JumpCount = 0;　//ジャンプ回数
 
     //動く速さ
     private float XSpeed;
 
     //フラグ
-    private bool isJump = false;  //ジャンプ中かの判定
 
     //色変え
     //[SerializeField] private Material[] materials;
@@ -272,11 +272,23 @@ public class PlayerController : MonoBehaviour
     //ジャンプ
     private void Jump()
     {
-        if(Input.GetKey(KeyCode.Space) && !isJump)
+        if(JumpCount <= 1)
         {
-            anim.SetBool("isJump", true);
-            isJump = true;
-            rb.AddForce(Vector2.up * flap);
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if(JumpCount == 0)
+                {
+                    anim.SetBool("isJump", true);
+                    JumpCount++;
+                    rb.AddForce(Vector2.up * flap);
+                }
+                if (JumpCount == 1)
+                {
+                    anim.SetBool("isDoubleJump", true);
+                    rb.AddForce(Vector2.up * flap);
+                    JumpCount++;
+                }
+            }
         }
     }
 
@@ -365,7 +377,6 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.tag == "Ground")
         {
-            isJump = false;
             anim.SetBool("isJump", false);
         }
     }
@@ -373,7 +384,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.collider.tag == "Ground")
         {
-            isJump = true;
+            JumpCount = 0;
         }
     }
 }
