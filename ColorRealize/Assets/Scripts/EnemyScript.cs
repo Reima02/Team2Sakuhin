@@ -12,18 +12,18 @@ public class EnemyScript : MonoBehaviour
 
     private void Start()
     {
-        if (enemyColor == Library.EnemyColors.YELLOW)
-        {
-            gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.YELLOW];
-        }
-        else if (enemyColor == Library.EnemyColors.MAGENTA)
-        {
-            gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.MAGENTA];
-        }
-        else if (enemyColor == Library.EnemyColors.CYAN)
-        {
-            gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.CYAN];
-        }
+        //if (enemyColor == Library.EnemyColors.YELLOW)
+        //{
+        //    gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.YELLOW];
+        //}
+        //else if (enemyColor == Library.EnemyColors.MAGENTA)
+        //{
+        //    gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.MAGENTA];
+        //}
+        //else if (enemyColor == Library.EnemyColors.CYAN)
+        //{
+        //    gameObject.GetComponent<Renderer>().material = materials[(int)Library.EnemyColors.CYAN];
+        //}
         playerController = GameObject.Find("Player").GetComponent<PlayerController>();
     }
 
@@ -31,6 +31,26 @@ public class EnemyScript : MonoBehaviour
     {
         //動く
         //Move();
+        switch(enemyColor)
+        {
+            //ブラック
+            case Library.EnemyColors.BLACK:
+                gameObject.GetComponent<Enemy>().Black();
+                break;
+            //シアン
+            case Library.EnemyColors.CYAN:
+                gameObject.GetComponent<Enemy>().Cyan();
+                break;
+            //マゼンタ
+            case Library.EnemyColors.MAGENTA:
+                gameObject.GetComponent<Enemy>().Magenta();
+                break;
+            //イエロー
+            case Library.EnemyColors.YELLOW:
+                gameObject.GetComponent<Enemy>().Yellow();
+                break;
+
+        }
     }
 
     private void Move()

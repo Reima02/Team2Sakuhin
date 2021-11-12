@@ -16,7 +16,8 @@ public static class Library
     {
         YELLOW,
         MAGENTA,
-        CYAN
+        CYAN,
+        BLACK
     }
 
 
